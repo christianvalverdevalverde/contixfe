@@ -1,7 +1,7 @@
 package cloud.contix.fe
 
 import cloud.contix.fe.ComprobanteElectronico.{ClaveAcceso, ComprobanteXmlFirmado}
-import org.apache.pekko.http.scaladsl.model.{HttpEntity, HttpMethods, HttpRequest, RequestEntity, Uri}
+import org.apache.pekko.http.scaladsl.model.{ContentTypes, HttpEntity, HttpMethods, HttpRequest, RequestEntity, Uri}
 
 trait RecepcionAutorizacionSRI {
   def generarRequestRecepcionProduccion(comprobanteXmlFirmado: ComprobanteXmlFirmado):HttpRequest={
@@ -31,7 +31,7 @@ trait RecepcionAutorizacionSRI {
   private val uriConsultaComprobantesProduccion=Uri("https://cel.sri.gob.ec/comprobantes-electronicos-ws/ConsultaComprobante")
   private val uriConsultaFactura=Uri("https://cel.sri.gob.ec/comprobantes-electronicos-ws/ConsultaFactura")
   private def construyeHttpEntity(soapRequestBody:String):RequestEntity={
-    ???
+    HttpEntity(ContentTypes.`text/plain(UTF-8)`, soapRequestBody)
   }
   private def envolverEnSoapRecepcion(comprobanteXmlFirmado: ComprobanteXmlFirmado):String={
     s"""
