@@ -1,4 +1,4 @@
-package cloud.contix.fe.eventos
+package cloud.contix.fe
 
 import cloud.contix.fe.MiSerializador
 

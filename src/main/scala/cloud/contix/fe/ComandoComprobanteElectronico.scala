@@ -1,4 +1,4 @@
-package cloud.contix.fe.comandos
+package cloud.contix.fe
 
 import cloud.contix.fe.MiSerializador
 

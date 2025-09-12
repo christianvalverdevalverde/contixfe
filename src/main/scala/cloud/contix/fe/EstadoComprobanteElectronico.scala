@@ -1,4 +1,4 @@
-package cloud.contix.fe.estados
+package cloud.contix.fe
 
 import cloud.contix.fe.ComprobanteElectronico.*
 import cloud.contix.fe.MiSerializador

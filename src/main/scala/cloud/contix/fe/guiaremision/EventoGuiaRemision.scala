@@ -1,0 +1,5 @@
+package cloud.contix.fe.guiaremision
+
+import cloud.contix.fe.EventoComprobanteElectronico
+
+sealed trait EventoGuiaRemision extends EventoComprobanteElectronico
