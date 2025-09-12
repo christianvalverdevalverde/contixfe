@@ -1,15 +1,39 @@
 package cloud.contix.fe
 
 import cloud.contix.fe.ComprobanteElectronico.{ClaveAcceso, ComprobanteXmlFirmado}
+import org.apache.pekko.http.scaladsl.model.{HttpEntity, HttpMethods, HttpRequest, RequestEntity, Uri}
 
 trait RecepcionAutorizacionSRI {
-  val urlRecepcionProduccion="https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline"
-  val urlRecepcionPruebas="https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline"
-  val urlAutorizacionProduccion="https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline"
-  val urlAutorizacionPruebas="https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline"
-  val urlConsultaComprobantesProduccion="https://cel.sri.gob.ec/comprobantes-electronicos-ws/ConsultaComprobante"
-  val urlConsultaFactura="https://cel.sri.gob.ec/comprobantes-electronicos-ws/ConsultaFactura"
-  def envolverEnSoapRecepcion(comprobanteXmlFirmado: ComprobanteXmlFirmado):String={
+  def generarRequestRecepcionProduccion(comprobanteXmlFirmado: ComprobanteXmlFirmado):HttpRequest={
+    val request=HttpRequest(post,uriRecepcionProduccion,entity = construyeHttpEntity(envolverEnSoapRecepcion(comprobanteXmlFirmado)))
+      request
+  }
+
+  def generarRequestRecepcionPruebas(comprobanteXmlFirmado: ComprobanteXmlFirmado): HttpRequest = {
+    val request = HttpRequest(post, uriRecepcionPruebas, entity = construyeHttpEntity(envolverEnSoapRecepcion(comprobanteXmlFirmado)))
+    request
+  }
+
+  def generarRequestAutorizacionProduccion(claveAcceso:ClaveAcceso):HttpRequest={
+    val request=HttpRequest(post,uriRecepcionProduccion,entity = construyeHttpEntity(envolverEnSoapAutorizacion(claveAcceso)))
+    request
+  }
+
+  def generarRequestAutorizacionPruebas(claveAcceso:ClaveAcceso): HttpRequest = {
+    val request = HttpRequest(post, uriRecepcionPruebas, entity = construyeHttpEntity(envolverEnSoapAutorizacion(claveAcceso)))
+    request
+  }
+  private val post=HttpMethods.POST
+  private val uriRecepcionProduccion=Uri("https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline")
+  private val uriRecepcionPruebas=Uri("https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline")
+  private val uriAutorizacionProduccion=Uri("https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline")
+  private val uriAutorizacionPruebas=Uri("https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline")
+  private val uriConsultaComprobantesProduccion=Uri("https://cel.sri.gob.ec/comprobantes-electronicos-ws/ConsultaComprobante")
+  private val uriConsultaFactura=Uri("https://cel.sri.gob.ec/comprobantes-electronicos-ws/ConsultaFactura")
+  private def construyeHttpEntity(soapRequestBody:String):RequestEntity={
+    ???
+  }
+  private def envolverEnSoapRecepcion(comprobanteXmlFirmado: ComprobanteXmlFirmado):String={
     s"""
        |<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="http://ec.gob.sri.ws.recepcion">
        |   <soapenv:Header/>
@@ -17,7 +41,7 @@ trait RecepcionAutorizacionSRI {
        |   <xml>${comprobanteXmlFirmado.value.getBytes()}</xml></ec:validarComprobante></soapenv:Body></soapenv:Envelope>
        |""".stripMargin
   }
-  def envolverEnSoapAutorizacion(claveAcceso:ClaveAcceso):String={
+  private def envolverEnSoapAutorizacion(claveAcceso:ClaveAcceso):String={
     s"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="http://ec.gob.sri.ws.autorizacion">
        |   <soapenv:Header/>
        |   <soapenv:Body>
@@ -27,7 +51,7 @@ trait RecepcionAutorizacionSRI {
        |   </soapenv:Body>
        |</soapenv:Envelope>""".stripMargin
   }
-  def envolverEnSoapConsultaComprobante(claveAcceso: ClaveAcceso):String={
+  private def envolverEnSoapConsultaComprobante(claveAcceso: ClaveAcceso):String={
     s"""
        |<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="http://ec.gob.sri.ws.consultas">
        |   <soapenv:Header/>
@@ -39,7 +63,7 @@ trait RecepcionAutorizacionSRI {
        |</soapenv:Envelope>
        |""".stripMargin
   }
-  def envolverEnSoapConsultaEstadoFacturaNegociable(claveAcceso: ClaveAcceso):String={
+  private def envolverEnSoapConsultaEstadoFacturaNegociable(claveAcceso: ClaveAcceso):String={
     s"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="http://ec.gob.sri.ws.consultas">
       |   <soapenv:Header/><soapenv:Body>
       |      <ec:consultarEstadoConfirmacionFacturaComercialNegociable>
