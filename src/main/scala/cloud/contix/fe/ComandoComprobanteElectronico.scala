@@ -1,3 +1,3 @@
 package cloud.contix.fe
 
-sealed trait ComandoComprobanteElectronico extends MiSerializador
+trait ComandoComprobanteElectronico extends MiSerializador

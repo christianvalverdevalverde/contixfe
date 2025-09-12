@@ -8,5 +8,4 @@ case class EstadoEntidad(
                           mailPassword: Option[MailPassword]=None,
                           hostCorreo: HostCorreo,
                           destinarioCorreoNotificadorError: Option[List[DestinarioCorreo]]=None
-
                         ) extends MiSerializador
