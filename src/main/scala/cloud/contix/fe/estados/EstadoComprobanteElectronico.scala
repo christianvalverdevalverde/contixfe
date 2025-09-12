@@ -1,6 +1,7 @@
-package cloud.contix.fe
+package cloud.contix.fe.estados
 
-import cloud.contix.fe.ComprobanteElectronico.{AutorizacionXml, ClaveAcceso, ComprobanteXml, ComprobanteXmlFirmado, DestinarioCorreo}
+import cloud.contix.fe.ComprobanteElectronico.*
+import cloud.contix.fe.MiSerializador
 
 
 case class EstadoComprobanteElectronico(

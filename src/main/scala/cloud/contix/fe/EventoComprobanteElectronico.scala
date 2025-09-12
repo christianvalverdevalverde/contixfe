@@ -1,3 +1,0 @@
-package cloud.contix.fe
-
-sealed trait EventoComprobanteElectronico extends MiSerializador

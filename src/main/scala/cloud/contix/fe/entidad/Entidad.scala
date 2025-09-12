@@ -1,5 +1,6 @@
-package cloud.contix.fe
+package cloud.contix.fe.entidad
 
+import cloud.contix.fe.entidad.ComandoEntidad
 import org.apache.pekko.actor.typed.Behavior
 import org.apache.pekko.actor.typed.scaladsl.Behaviors
 

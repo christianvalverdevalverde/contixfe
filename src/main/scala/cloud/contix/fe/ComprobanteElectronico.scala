@@ -1,5 +1,6 @@
 package cloud.contix.fe
 
+import cloud.contix.fe.comandos.ComandoComprobanteElectronico
 import org.apache.pekko.actor.typed.Behavior
 import org.apache.pekko.actor.typed.scaladsl.Behaviors
 

@@ -1,7 +1,8 @@
-package cloud.contix.fe
+package cloud.contix.fe.entidad
 
 import cloud.contix.fe.ComprobanteElectronico.DestinarioCorreo
-import cloud.contix.fe.Entidad.{HostCorreo, MailPassword, MailUSername}
+import cloud.contix.fe.MiSerializador
+import cloud.contix.fe.entidad.Entidad.{HostCorreo, MailPassword, MailUSername}
 
 case class EstadoEntidad(
                           mailUSername: Option[MailUSername]=None,

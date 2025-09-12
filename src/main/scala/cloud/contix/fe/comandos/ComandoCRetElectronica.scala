@@ -1,3 +1,3 @@
-package cloud.contix.fe
+package cloud.contix.fe.comandos
 
 sealed trait ComandoCRetElectronica extends ComandoComprobanteElectronico
