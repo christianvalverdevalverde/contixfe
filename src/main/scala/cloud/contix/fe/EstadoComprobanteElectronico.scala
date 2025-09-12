@@ -1,6 +1,7 @@
 package cloud.contix.fe
 
-import cloud.contix.fe.ComprobanteElectronico.{AutorizacionXml, ClaveAcceso, ComprobanteXml, ComprobanteXmlFirmado}
+import cloud.contix.fe.ComprobanteElectronico.{AutorizacionXml, ClaveAcceso, ComprobanteXml, ComprobanteXmlFirmado, DestinarioCorreo}
+
 
 case class EstadoComprobanteElectronico(
                                          claveAcceso: ClaveAcceso,
@@ -8,5 +9,6 @@ case class EstadoComprobanteElectronico(
                                          razonSocialBeneficiario: String,
                                          comprobanteXml: ComprobanteXml,
                                          comprobanteXmlFirmado: ComprobanteXmlFirmado,
-                                         autorizacionXml: Option[AutorizacionXml] = None
+                                         autorizacionXml: Option[AutorizacionXml] = None,
+                                         notificados:Set[DestinarioCorreo]=Set()
                                        ) extends MiSerializador

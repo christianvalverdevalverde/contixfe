@@ -1,16 +1,23 @@
 package cloud.contix.fe
 
+import org.apache.pekko.actor.typed.Behavior
+import org.apache.pekko.actor.typed.scaladsl.Behaviors
+
 object ComprobanteElectronico {
   opaque type ComprobanteXml = String
   opaque type AutorizacionXml = String
   opaque type ComprobanteXmlFirmado = String
   opaque type ClaveAcceso = String
-
-  
-
+  opaque type DestinarioCorreo = String
 
 
+  def apply(claveAcceso: ClaveAcceso):Behavior[ComandoComprobanteElectronico]=Behaviors.setup{ contexto=>
+    contexto.log.info("Inicializando el actor ComprobanteElectronico")
+    Behaviors.withTimers{ timers=>
 
+      Behaviors.same
+    }
+  }
 
   object ClaveAcceso:
     def apply(c: String): ClaveAcceso = {
