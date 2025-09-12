@@ -10,7 +10,8 @@ object ComprobanteElectronico {
   opaque type ComprobanteXmlFirmado = String
   opaque type ClaveAcceso = String
   opaque type DestinarioCorreo = String
-
+  opaque type DireccionSucursal= String
+  opaque type DireccionMatriz = String
 
   def apply(claveAcceso: ClaveAcceso):Behavior[ComandoComprobanteElectronico]=Behaviors.setup{ contexto=>
     contexto.log.info("Inicializando el actor ComprobanteElectronico")
