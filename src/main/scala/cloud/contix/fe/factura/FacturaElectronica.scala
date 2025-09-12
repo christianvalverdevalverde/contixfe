@@ -12,7 +12,7 @@ object FacturaElectronica extends RecepcionAutorizacionSRI{
   def apply(claveAcceso:ClaveAcceso):Behavior[ComandoFacturaElectronica]=Behaviors.setup{contexto=>
     import contexto.system
     Behaviors.receiveMessage{
-      case RegistrarComprobante(claveAcceso,comprobanteXml,comprobanteXmlFirmado,reply)=>
+      case RegistrarComprobante(comprobanteXml,comprobanteXmlFirmado,reply)=>
         contexto.log.info(s"se va a enviar a procesar el siguiente comprobante recién receptado ${claveAcceso.value}")
         val respuesta=Http().singleRequest(generarRequestRecepcionProduccion(comprobanteXmlFirmado))
         Behaviors.same

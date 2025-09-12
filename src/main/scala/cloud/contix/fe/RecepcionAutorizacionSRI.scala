@@ -25,6 +25,8 @@ trait RecepcionAutorizacionSRI {
     val request = HttpRequest(post, uriRecepcionPruebas, entity = construyeHttpEntity(envolverEnSoapAutorizacion(claveAcceso)))
     request
   }
+  val hostProduccion="https://cel.sri.gob.ec"
+  val hostPruebas="https://cel.sri.gob.ec"
   private val post=HttpMethods.POST
   private val uriRecepcionProduccion=Uri("https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline")
   private val uriRecepcionPruebas=Uri("https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline")

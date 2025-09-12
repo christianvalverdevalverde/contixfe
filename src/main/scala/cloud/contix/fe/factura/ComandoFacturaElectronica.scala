@@ -6,4 +6,4 @@ import org.apache.pekko.actor.typed.ActorRef
 
 sealed trait ComandoFacturaElectronica extends ComandoComprobanteElectronico
 
-case class RegistrarComprobante(claveAcceso:ClaveAcceso,comprobanteXml: ComprobanteXml,comprobanteXmlFirmado: ComprobanteXmlFirmado,reply:ActorRef[String]) extends ComandoFacturaElectronica
+case class RegistrarComprobante(comprobanteXml: ComprobanteXml,comprobanteXmlFirmado: ComprobanteXmlFirmado,reply:ActorRef[String]) extends ComandoFacturaElectronica
