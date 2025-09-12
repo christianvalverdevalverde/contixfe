@@ -7,7 +7,8 @@ trait RecepcionAutorizacionSRI {
   val urlRecepcionPruebas="https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline"
   val urlAutorizacionProduccion="https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline"
   val urlAutorizacionPruebas="https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline"
-
+  val urlConsultaComprobantesProduccion="https://cel.sri.gob.ec/comprobantes-electronicos-ws/ConsultaComprobante"
+  val urlConsultaFactura="https://cel.sri.gob.ec/comprobantes-electronicos-ws/ConsultaFactura"
   def envolverEnSoapRecepcion(comprobanteXmlFirmado: ComprobanteXmlFirmado):String={
     s"""
        |<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="http://ec.gob.sri.ws.recepcion">
@@ -25,5 +26,26 @@ trait RecepcionAutorizacionSRI {
        |      </ec:autorizacionComprobante>
        |   </soapenv:Body>
        |</soapenv:Envelope>""".stripMargin
+  }
+  def envolverEnSoapConsultaComprobante(claveAcceso: ClaveAcceso):String={
+    s"""
+       |<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="http://ec.gob.sri.ws.consultas">
+       |   <soapenv:Header/>
+       |   <soapenv:Body>
+       |      <ec:consultarEstadoAutorizacionComprobante>
+       |         <claveAcceso>${claveAcceso.value}</claveAcceso>
+       |      </ec:consultarEstadoAutorizacionComprobante>
+       |   </soapenv:Body>
+       |</soapenv:Envelope>
+       |""".stripMargin
+  }
+  def envolverEnSoapConsultaEstadoFacturaNegociable(claveAcceso: ClaveAcceso):String={
+    s"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="http://ec.gob.sri.ws.consultas">
+      |   <soapenv:Header/><soapenv:Body>
+      |      <ec:consultarEstadoConfirmacionFacturaComercialNegociable>
+      |         <claveAcceso>${claveAcceso.value}</claveAcceso>
+      |      </ec:consultarEstadoConfirmacionFacturaComercialNegociable>
+      |   </soapenv:Body>
+      |</soapenv:Envelope>""".stripMargin
   }
 }
