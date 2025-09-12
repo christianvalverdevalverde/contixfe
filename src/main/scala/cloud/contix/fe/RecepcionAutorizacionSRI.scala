@@ -1,7 +1,9 @@
 package cloud.contix.fe
 
 import cloud.contix.fe.ComprobanteElectronico.{ClaveAcceso, ComprobanteXmlFirmado}
-import org.apache.pekko.http.scaladsl.model.{ContentTypes, HttpEntity, HttpMethods, HttpRequest, RequestEntity, Uri}
+import org.apache.pekko.NotUsed
+import org.apache.pekko.http.scaladsl.model.{ContentTypes, HttpEntity, HttpMethods, HttpRequest, HttpResponse, RequestEntity, Uri}
+import org.apache.pekko.stream.scaladsl.Source
 
 trait RecepcionAutorizacionSRI {
   def generarRequestRecepcionProduccion(comprobanteXmlFirmado: ComprobanteXmlFirmado):HttpRequest={
@@ -71,5 +73,8 @@ trait RecepcionAutorizacionSRI {
       |      </ec:consultarEstadoConfirmacionFacturaComercialNegociable>
       |   </soapenv:Body>
       |</soapenv:Envelope>""".stripMargin
+  }
+  def crearPipelineRecepcion(httpResponse: HttpResponse): Source[HttpResponse, NotUsed] ={
+    Source.single(httpResponse)
   }
 }
