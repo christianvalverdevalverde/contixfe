@@ -1,12 +1,12 @@
 package cloud.contix.fe
 
+import org.apache.pekko.actor.typed.ActorSystem
+import org.apache.pekko.actor.typed.scaladsl.Behaviors
+
 object ServicioComprobantesElectronicos {
-
+  
   def main(args: Array[String]): Unit = {
-    import ComprobanteElectronico.*
-    val clave=ClaveAcceso("0807202501091222018300120010020000000230000002619")
-    val valor=clave.value
-    println(valor.reverse)
-
+    implicit val actorSystem: ActorSystem[Nothing] =ActorSystem[Nothing](Behaviors.empty,"contixfe") 
+  
   }
 }

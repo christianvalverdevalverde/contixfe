@@ -1,5 +1,6 @@
 package cloud.contix.fe
 
+import java.nio.charset.{Charset, StandardCharsets}
 
 
 object ComprobanteElectronico {
@@ -8,24 +9,24 @@ object ComprobanteElectronico {
     def apply(s: String): HostCorreo = s
     extension (c: HostCorreo)
       def value: String = c
-      
-      
+
+
   opaque type MailUSername = String
   object MailUSername:
     def apply(s: String): MailUSername = s
     extension (c: MailUSername)
       def value: String = c
-  
+
   opaque type MailPassword = String
   object MailPassword:
     def apply(s: String): MailPassword = s
     extension (c: MailPassword)
       def value: String = c
-  
+
   opaque type ComprobanteXmlFirmado=String
   opaque type ComprobanteXml=String
   object ComprobanteXml:
-    def apply(s:String):ComprobanteXml=s
+    def apply(s:String):ComprobanteXml=new String(s.getBytes(),StandardCharsets.UTF_8)
     extension (c:ComprobanteXml)
       def value:String=c
 
