@@ -1,6 +1,6 @@
 lazy val pekkoHttpVersion = "1.2.0"
 lazy val pekkoVersion     = "1.2.0"
-
+lazy val PekkoManagementVersion = "1.1.1"
 // Run in a separate JVM, to make sure sbt waits until all threads have
 // finished before returning.
 // If you want to keep the application running while executing other
@@ -25,7 +25,8 @@ lazy val root = (project in file(".")).
       "org.apache.pekko" %% "pekko-distributed-data" % pekkoVersion,
       "org.apache.pekko" %% "pekko-persistence-typed" % pekkoVersion,
       "org.apache.pekko" %% "pekko-serialization-jackson" % pekkoVersion,
-
+      "org.apache.pekko" %% "pekko-management" % PekkoManagementVersion,
+      "org.apache.pekko" %% "pekko-management-cluster-http" % PekkoManagementVersion,
       "org.apache.pekko" %% "pekko-http-testkit"        % pekkoHttpVersion % Test,
       "org.apache.pekko" %% "pekko-actor-testkit-typed" % pekkoVersion     % Test,
       "org.scalatest"     %% "scalatest"                % "3.2.19"         % Test

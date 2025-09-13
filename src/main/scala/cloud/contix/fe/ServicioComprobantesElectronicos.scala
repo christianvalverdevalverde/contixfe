@@ -8,6 +8,7 @@ object ServicioComprobantesElectronicos {
   
   def main(args: Array[String]): Unit = {
     implicit val actorSystem: ActorSystem[Nothing] =ActorSystem[Nothing](Behaviors.empty,"contixfe")
+   // val pekkoManagment=PekkoManagment(actorSystem).start()
     val sharding = ClusterSharding(actorSystem)
   }
 }
