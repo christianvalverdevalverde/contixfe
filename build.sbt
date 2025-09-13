@@ -19,7 +19,12 @@ lazy val root = (project in file(".")).
       "org.apache.pekko" %% "pekko-http-spray-json"     % pekkoHttpVersion,
       "org.apache.pekko" %% "pekko-actor-typed"         % pekkoVersion,
       "org.apache.pekko" %% "pekko-stream"              % pekkoVersion,
-      "ch.qos.logback"    % "logback-classic"           % "1.3.15",
+      "ch.qos.logback"    % "logback-classic"           % "1.5.18",
+      "io.github.iltotore" %% "iron" % "3.2.0",
+      "org.apache.pekko" %% "pekko-cluster-sharding-typed" % pekkoVersion,
+      "org.apache.pekko" %% "pekko-distributed-data" % pekkoVersion,
+      "org.apache.pekko" %% "pekko-persistence-typed" % pekkoVersion,
+      "org.apache.pekko" %% "pekko-serialization-jackson" % pekkoVersion,
 
       "org.apache.pekko" %% "pekko-http-testkit"        % pekkoHttpVersion % Test,
       "org.apache.pekko" %% "pekko-actor-testkit-typed" % pekkoVersion     % Test,
