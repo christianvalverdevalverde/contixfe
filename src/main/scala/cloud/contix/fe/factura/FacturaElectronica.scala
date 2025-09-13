@@ -5,32 +5,19 @@ import cloud.contix.fe.ComprobanteElectronico.{ClaveAcceso, ComprobanteXmlFirmad
 import org.apache.pekko.actor.typed.Behavior
 import org.apache.pekko.actor.typed.scaladsl.Behaviors
 import org.apache.pekko.http.scaladsl.Http
+import org.apache.pekko.persistence.typed.PersistenceId
+import org.apache.pekko.persistence.typed.scaladsl.{Effect, EventSourcedBehavior}
 
 object FacturaElectronica extends RecepcionAutorizacionSRI{
   
   
   def apply(claveAcceso:ClaveAcceso):Behavior[ComandoFacturaElectronica]=Behaviors.setup{contexto=>
-    import contexto.system
-    Behaviors.receiveMessage{
-      case RegistrarComprobante(comprobanteXml,comprobanteXmlFirmado,reply)=>
-        contexto.log.info(s"se va a enviar a procesar el siguiente comprobante recién receptado ${claveAcceso.value}")
-        val texto=if comprobanteXmlFirmado.isDefined then comprobanteXmlFirmado.get.value else ""
-        val respuesta=Http().singleRequest(generarRequestRecepcionProduccion(ComprobanteXmlFirmado(texto)))
-        Behaviors.same
-      case _=>
-        Behaviors.same
-    }
 
+    EventSourcedBehavior[ComandoFacturaElectronica,EventoFactura,EstadoFactura](
+      persistenceId = PersistenceId.ofUniqueId(claveAcceso.value),
+      emptyState = EstadoFactura(),
+      commandHandler = (estado,comando)=>Effect.none,
+      eventHandler = (estado,evento)=>estado
+    )
   }
-
-
-
-
-  //  def anulada(claveAcceso:ClaveAcceso):Behavior[ComandoComprobanteAnulado]=Behaviors.setup{ contexto=>
-//    contexto.log.info(s"inicializando comportamiento Comprobante anulado ${claveAcceso.value}")
-//    Behaviors.receiveMessage {
-//      case MarcarComoNoAnulado(claveAcceso, reply) => ???
-//      case _ => ???
-//    }
-//  }
 }

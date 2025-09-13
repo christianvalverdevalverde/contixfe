@@ -3,14 +3,19 @@ package cloud.contix.fe.entidad
 import cloud.contix.fe.entidad.ComandoEntidad
 import org.apache.pekko.actor.typed.Behavior
 import org.apache.pekko.actor.typed.scaladsl.Behaviors
+import org.apache.pekko.persistence.typed.PersistenceId
+import org.apache.pekko.persistence.typed.scaladsl.{Effect, EventSourcedBehavior}
 
 object Entidad {
-  opaque type HostCorreo=String
-  opaque type MailUSername=String
-  opaque type MailPassword=String
+  
 
-  def apply():Behavior[ComandoEntidad]=Behaviors.setup{ contexto=>
+  def apply(uuid:String,ruc:String):Behavior[ComandoEntidad]=Behaviors.setup{ contexto=>
    contexto.log.info("Instanciando actor Entidad")
-    Behaviors.same
+   EventSourcedBehavior[ComandoEntidad,EventoEntidad,EstadoEntidad](
+     persistenceId = PersistenceId.ofUniqueId(uuid),
+     emptyState = EstadoEntidad(),
+     commandHandler = (estado,comando)=>Effect.none,
+     eventHandler = (estado,evento)=>estado
+   )
   }
 }
