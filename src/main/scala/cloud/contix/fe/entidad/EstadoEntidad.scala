@@ -9,8 +9,8 @@ import java.security.cert.X509Certificate
 import java.util.Date
 
 case class EstadoEntidad(
-                          mailUSername:Option[MailUSername]=Some(MailUSername("facturacion@tu-efactura.ec")),
-                          mailPassword: Option[MailPassword]=Some(MailPassword("Mt1cMt1c")),
+                          mailUSername:Option[MailUSername]=None,
+                          mailPassword: Option[MailPassword]=None,
                           hostCorreo: HostCorreo=HostCorreo("mail.oncomed.ec"),
                           destinarioCorreoNotificadorError: Option[List[DestinarioCorreo]]=None,
                           privatekey:Option[PrivateKey]=None,
